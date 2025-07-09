@@ -1,0 +1,40 @@
+{
+  "name": "auth",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "clean": "npx rimraf lib node_modules coverage package-lock.json",
+    "dev": "node -r dotenv/config -r ts-node/register src/index.ts",
+    "dry": "npm publish --dry-run",
+    "pempriv": "openssl genpkey -algorithm RSA -out private-key.pem -pkeyopt rsa_keygen_bits:2048",
+    "pempub": "openssl rsa -pubout -in private-key.pem -out public-key.pem",
+    "test": "npm run pempriv && npm rum pempub && jest --config=jest.config.ts --passWithNoTests",
+    "fix": "npm run fix:prettier && npm run fix:eslint",
+    "fix:eslint": "eslint --fix \"**/*.ts\"",
+    "fix:prettier": "prettier --write \"**/*.ts\"",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
+    "lint:eslint": "eslint \"**/*.ts\"",
+    "lint:eslint-unused": "eslint --report-unused-disable-directives \"**/*.ts\"",
+    "lint:eslint-no-inline": "eslint --no-inline-config \"**/*.ts\"",
+    "lint:prettier": "prettier --check \"**/*.ts\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^17.1.0",
+    "fastify": "^5.4.0",
+    "fs": "^0.0.1-security",
+    "jsonwebtoken": "^9.0.2",
+    "path": "^0.12.7",
+    "prettier": "^3.6.2"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.0.12",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
