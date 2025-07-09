@@ -22,6 +22,8 @@ export function verifyToken(signedToken: string): string | jwt.JwtPayload | unde
     const verifyRes = jwt.verify(signedToken, publicKey);
     return verifyRes
   }catch(error){
-    if(er)
+    if(error instanceof TokenExpiredError){
+        throw new Error("Token Expired");
+    }
   }
 }
